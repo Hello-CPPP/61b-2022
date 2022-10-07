@@ -9,6 +9,19 @@ public class LeapYear {
      */
     public static boolean isLeapYear(int year) {
         // Optional TODO: Fill in this method.
+        /*Leap Years are defined as a year divisible by 400 or divisible by 4 and not by 100.
+        For example, 2000 and 2004 are leap years. 1900, 2003, and 2100 are not leap years.*/
+        if (year < 0) {
+            return false;
+        }
+        if (year % 400 == 0) {
+            return true;
+        }
+        if (year % 4 == 0 && year % 100 != 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /** Calls isLeapYear to print correct statement. */
@@ -22,9 +35,10 @@ public class LeapYear {
 
     /** Basic (Optional) Sanity Tests */
     public static void main(String[] args) {
-        System.out.println("Checking the year 2000, which should be a leap year:");
-        checkLeapYear(2000);
-        System.out.println("Checking the year 1700, which should be not a leap year:");
-        checkLeapYear(1700);
+//        System.out.println("Checking the year 2000, which should be a leap year:");
+//        checkLeapYear(2000);
+//        System.out.println("Checking the year 1700, which should be not a leap year:");
+//        checkLeapYear(1700);
+        System.out.println(isLeapYear(2004));
     }
 }
