@@ -138,6 +138,16 @@ public class Model extends Observable {
      */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        //遍历所有的空格，如果全部都是0，则return true;
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                if (b.tile(i, j) != null) {
+                    continue;
+                } else {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +158,17 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                //控制台输出的信息应放在第一位
+                if (b.tile(i, j) == null) {
+                    continue;
+                }
+                if (b.tile(i, j).value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +180,35 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if (emptySpaceExists(b)) {
+            return true;
+        }
+        //从左上开始，跟右下比较
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                //对于最右的列和最下的行
+                if (i == b.size() - 1) {
+                    if (j == b.size() -1) return false;
+                    if (b.tile(i, j).value() == b.tile(i, j+1).value()) {
+                        return true;
+                    }
+                    break;
+                }
+
+                if (j == b.size() -1) {
+                    if (b.tile(i, j).value() == b.tile(i+1, j).value()) {
+                        return true;
+                    }
+                    break;
+                }
+
+                if (b.tile(i, j).value() == b.tile(i+1, j).value() || b.tile(i, j).value() == b.tile(i, j+1).value()) {
+                    return true;
+                }
+
+            }
+        }
+
         return false;
     }
 
