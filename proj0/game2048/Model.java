@@ -117,8 +117,104 @@ public class Model extends Observable {
      */
     public void tilt(Side side) {
         // TODO: Fill in this function.
-
         checkGameOver();
+        /**
+         * 从第二行开始，判断是否与上一行相等，直到不能再向上移动/到其该在的地方
+            * 如果上一行不存在，移动上去
+            * 如果上以上存在，判断是否merge
+         * 递归地判断某个方块能否向上移动
+         *
+         * 选定某个方格
+         * 判断能否向上
+         * 移动
+         * 继续更新后的位置能否向上
+         */
+
+        /** this is left press */
+        /*for (int i = 1; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+                if (_board.tile(i, j) == null) {
+                    continue;
+                }
+                for (int k = i; k > 0; k--) {
+                    if (_board.tile(k - 1, j) == null) {
+                        _board.move(k - 1, j, _board.tile(k, j));
+                        continue;
+                    }
+
+                    if (_board.tile(i, j).value() == _board.tile(i-1, j).value()) {
+                        boolean isMerge = _board.move(i - 1, j, _board.tile(i, j));
+                        continue;
+                    }
+                }
+
+
+
+            }
+        }*/
+
+        /** this is down press */
+        /*for (int i = 1; i < size(); i++) {
+            for (int j = 0; j < size(); j++) {
+                if (_board.tile(j, i) == null) {
+                    continue;
+                }
+                for (int k = i; k > 0; k--) {
+                    if (_board.tile(j, k - 1) == null) {
+                        _board.move(j, k - 1, _board.tile(j, k));
+                        continue;
+                    }
+
+                    if (_board.tile(j, k).value() == _board.tile(j, k-1).value()) {
+                        boolean isMerge = _board.move(j, k - 1, _board.tile(j, k));
+                        continue;
+                    }
+                }
+            }
+        }*/
+
+        //根据传入的side参数调整视角
+        Side perspective = side;
+
+        _board.setViewingPerspective(perspective);
+
+        //this is up press
+        //TODO 另一种方法，merge之后关闭开关，一个方块之后打开
+        boolean mergeControl;
+        for (int i = 0; i < size(); i++) {
+            int mergeBoundary = size() - 1;
+            for (int j = size() - 2; j > -1; j--) {
+                if (_board.tile(i, j) == null) {
+                    continue;
+                }
+
+                for (int k = j; k < mergeBoundary ; k++) {
+                    if (_board.tile(i, k + 1) == null) {
+                        _board.move(i, k + 1, _board.tile(i, k));
+                        continue;
+                    }
+
+                    if (_board.tile(i, k).value() == _board.tile(i, k + 1).value()) {
+                        _score += 2 * _board.tile(i, k).value();
+                        boolean isMerge = _board.move(i, k + 1, _board.tile(i, k));
+                        //应该在merge之后改变方块的状态
+                        mergeBoundary = k;
+                        continue;
+                        //注意continue这种“跳转式”的语句会打断之前的程序执行流程，其后的语句可能得不到正确的执行
+                    }
+
+                }
+            }
+        }
+
+        _board.setViewingPerspective(Side.NORTH);
+
+
+    }
+
+    private boolean signTile(Tile tile) {
+
+        return true;
     }
 
     /** Checks if the game is over and sets the gameOver variable
