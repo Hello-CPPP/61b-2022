@@ -97,18 +97,18 @@ public class ArrayDeque<T> implements Iterable<T>{
         return items[index];
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof ArrayDeque lld && lld.size == this.size) {
-            for (int i = 0; i < size; i++) {
-                if (lld.get(i) != this.get(i)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
+    //@Override
+    //public boolean equals(Object o) {
+    //    if (o instanceof ArrayDeque lld && lld.size == this.size) {
+    //        for (int i = 0; i < size; i++) {
+    //            if (lld.get(i) != this.get(i)) {
+    //                return false;
+    //            }
+    //        }
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     @Override
     public Iterator<T> iterator() {
