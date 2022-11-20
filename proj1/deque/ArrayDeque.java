@@ -11,10 +11,15 @@ public class ArrayDeque<T> implements Iterable<T>{
     T[] items;
     int size;
     int capacity;
+    int nextFirst;
+    int nextLast;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
+        //first和last的具体位置并不重要
+        nextFirst = 3;
+        nextLast = 4;
     }
 
     public void addFirst(T item) {
@@ -97,18 +102,18 @@ public class ArrayDeque<T> implements Iterable<T>{
         return items[index];
     }
 
-    //@Override
-    //public boolean equals(Object o) {
-    //    if (o instanceof ArrayDeque lld && lld.size == this.size) {
-    //        for (int i = 0; i < size; i++) {
-    //            if (lld.get(i) != this.get(i)) {
-    //                return false;
-    //            }
-    //        }
-    //        return true;
-    //    }
-    //    return false;
-    //}
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ArrayDeque lld && lld.size == this.size) {
+            for (int i = 0; i < size; i++) {
+                if (lld.get(i) != this.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public Iterator<T> iterator() {
